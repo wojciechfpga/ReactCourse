@@ -1,25 +1,34 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 
 export default function ListComponent() {
-    // Przykładowa tablica elementów
-    const item = 'some item'
-    const items = [
-        { id: 1, name: 'Element 1' },
-        { id: 2, name: 'Element 2' },
-        { id: 3, name: 'Element 3' },
-        { id: 4, name: 'Element 4' },
-    ];
+    const [users, setUsers] = useState([]);
+    const [filter, setFilter] = useState('');
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            const response = await fetch('https://jsonplaceholder.typicode.com/users');
+            const result = await response.json();
+            setUsers(result);
+        };
+
+        fetchUsers();
+    }, []); // Pobrano raz przy montowaniu
+
+    const filteredUsers = users.filter(user => user.name.toLowerCase().includes(filter.toLowerCase()));
+
     return (
         <div>
-            <hr></hr>
-            <h1>{item}</h1>
-            <h2>Lista elementów:</h2>
+            <input
+                type="text"
+                value={filter}
+                onChange={e => setFilter(e.target.value)}
+                placeholder="Wyszukaj użytkownika"
+            />
             <ul>
-                {items.map(item => (
-                    <li key={item.id}>{item.name}</li>
+                {filteredUsers.map(user => (
+                    <li key={user.id}>{user.name}</li>
                 ))}
             </ul>
-            <hr></hr>
         </div>
     );
-};
+}
