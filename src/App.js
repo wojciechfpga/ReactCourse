@@ -1,11 +1,11 @@
 import './App.css';
-import ListComponent from './components/listdisplay';
+import ParentComponent from './components/parent';
 
 function App() {
   return (
     <div>
       <p>My App</p>    
-      <ListComponent/>
+      <ParentComponent/>
     </div>
   );
 }
