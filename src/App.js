@@ -1,12 +1,19 @@
 import './App.css';
-import ParentComponent from './components/parent';
+import { Routes, Route } from 'react-router';
+import ListComponent from './components/listdisplay';
+import About from './components/about';
+import Header from './components/header';
 
 function App() {
   return (
-    <div>
-      <p>My App</p>    
-      <ParentComponent/>
-    </div>
+    <>
+      <Routes>
+      <Route path="/" element={<Header />} >
+        <Route index element={<ListComponent />} />
+        <Route path="/about" element={<About />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 
